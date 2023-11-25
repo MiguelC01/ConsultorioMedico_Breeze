@@ -9,6 +9,18 @@
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 
+        <div>
+            <x-input-label for="usertype" :value="__('Usertype')" />
+            <x-text-input id="usertype" class="block mt-1 w-full" type="text" name="usertype" :value="old('usertype')" required autofocus autocomplete="usertype" />
+            <x-input-error :messages="$errors->get('usertype')" class="mt-2" />
+        </div>
+
+        <div>
+            <x-input-label for="born" :value="__('Born')" />
+            <x-text-input id="born" class="block mt-1 w-full" type="date" name="born" :value="old('born')" required autofocus autocomplete="born" />
+            <x-input-error :messages="$errors->get('born')" class="mt-2" />
+        </div>
+
         <!-- Email Address -->
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />
