@@ -8,23 +8,21 @@ class UserController extends Controller
 {
     public function index()
     {
-        //$tipoUsuario = Auth::user()->tipoUsuario;
-        $tipoUsuario="Administrador";
-        switch ($tipoUsuario) {
-            case 'Administrador':
+        if(Auth::id()){
+            $usertype = Auth()->user()->usertype;
+            if($usertype == 'Administrador'){
                 $users = User::all();
-                //dd($users);
-                return view('admin.home', compact('users'));
-                break;
+                return view('admin.adminhome');
+            } else if($usertype == 'Doctor'){
+                $users = User::
+                $users = User::where('usertype', 'Pacientes');
 
-            case 'Doctor':
-                $users = User::where('tipoUsuario', 'Paciente');
-                return view('doctor.home', compact('users'));
-                break;
-
-            default:
-                abort(403, 'No tienes permisos para ver esta página.');
+            } else{
+                return redirect()->back();
+            }
         }
+
+
     }
 
     /**

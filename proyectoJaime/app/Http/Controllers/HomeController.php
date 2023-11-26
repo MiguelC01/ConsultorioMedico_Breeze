@@ -12,13 +12,15 @@ class HomeController extends Controller
     {
         if(Auth::id()){
             $usertype = Auth()->user()->usertype;
-            if($usertype == 'user'){
+            if($usertype == 'Paciente'){
                 return view('dashboard');
             } else if($usertype == 'Administrador'){
-                return view('admin.adminhome');
+                $users = User::all();
+                return view('admin.adminhome', compact('users'));
 
             } else if($usertype == 'Doctor'){
-                return view('dashboard');
+                $users = User::where('usertype', 'Paciente');
+                return view('dashboard', compact('users'));
 
             } else{
                 return redirect()->back();

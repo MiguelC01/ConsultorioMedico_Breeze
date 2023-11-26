@@ -10,9 +10,14 @@
         </div>
 
         <div>
-            <x-input-label for="usertype" :value="__('Usertype')" />
-            <x-text-input id="usertype" class="block mt-1 w-full" type="text" name="usertype" :value="old('usertype')" required autofocus autocomplete="usertype" />
-            <x-input-error :messages="$errors->get('usertype')" class="mt-2" />
+            <x-input-label for="usertype" :value="__('Rol')" />
+            <select class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full" id="usertype" name="usertype">
+                <option value="Administrador">Administrador</option>
+                <option value="Doctor">Doctor</option>
+                <option value="Paciente">Paciente</option>
+                </select>
+            {{-- <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" /> --}}
+            <x-input-error :messages="$errors->get('rol')" class="mt-2" />
         </div>
 
         <div>
