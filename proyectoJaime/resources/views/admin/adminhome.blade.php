@@ -10,25 +10,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <table>
-                        <tr>
-                            <th>Correo</th>
-                            <th>Nombre</th>
-                            <th>Tipo de usuario</th>
-                            <th></th>
-                        </tr>
-                    @foreach ($users as $user)
-                    <tr>
-                        <td>{{$user->email}}</td>
-                        <td>{{$user->name}}</td>
-                        <td>{{$user->usertype}}</td>
-                        <td>
-                            <a href="">Editar</a>
-                            <a href="">Eliminar</a>
-                        </td>
-                    </tr>
-                    @endforeach
-                    </table>
+                    @yield('content')
                 </div>
             </div>
         </div>
