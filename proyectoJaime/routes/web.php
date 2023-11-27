@@ -25,6 +25,8 @@ Route::get('/dashboard', function () {
 */
 Route::controller(App\Http\Controllers\HomeController::class)->group(function (){
 Route::get('/home',[HomeController::class, 'index'])->middleware('auth')->name('home');
+Route::get('/create',[HomeController::class, 'create'])->middleware('auth')->name('create');
+Route::post('/create',[HomeController::class, 'store'])->middleware('auth')->name('store');
 Route::get('/home/edit{id}',[HomeController::class, 'edit'])->middleware('auth')->name('home.edit');
 Route::put('/home/update{id}',[HomeController::class, 'update'])->middleware('auth')->name('home.update');
 Route::delete('/home/delete{id}',[HomeController::class, 'destroy'])->middleware('auth')->name('home.destroy');

@@ -6,17 +6,25 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
+
+
+
 
 class HomeController extends Controller
 {
     public function index()
     {
+
         if(Auth::id()){
             $usertype = Auth()->user()->usertype;
             if($usertype == 'Paciente'){
                 return view('dashboard');
             } else if($usertype == 'Administrador'){
-                $users = User::all();
+
+                $users = User::where('usertype', 'Doctor')->orWhere('usertype', 'Paciente')->get();
                 return view('admin.table', compact('users'));
 
             } else if($usertype == 'Doctor'){
@@ -28,6 +36,36 @@ class HomeController extends Controller
             }
         }
 
+    }
+
+    public function create()
+    {
+        return view('admin.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'usertype' => ['required', 'string', 'max:20'],
+            'born' => ['required', 'date', 'max:20'],
+
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'born' => $request->born,
+            'usertype' => $request->usertype,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        event(new Registered($user));
+
+
+        return redirect('/home')->with('message', 'Nuevo usuario');
     }
 
     public function edit($id)
